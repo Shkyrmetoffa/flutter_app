@@ -1,4 +1,4 @@
-#Mon Jul 06 18:27:50 EEST 2020
-base.0=/Users/user/Documents/flutter_app/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Thu Jul 23 13:03:12 EEST 2020
+base.0=/Users/user/Documents/flutter_app_my/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
