@@ -5,10 +5,9 @@ class HomePageButton extends StatelessWidget {
     @required this.image,
     @required this.color,
     @required this.label,
-    @required
-  this.onPress});
+    @required this.onPress});
 
-  final String image;
+  final image;
   final color;
   final String label;
   final Function onPress;
@@ -21,15 +20,18 @@ class HomePageButton extends StatelessWidget {
           child: Column( // Replace with a Row for horizontal icon + text
             children: <Widget>[
               Image(
-                  image: AssetImage(this.image),
+                  image: this.image,
                   height: 60,
                   width: 60
               ),
-              Text(this.label)
+              Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: Text(this.label)
+              )
             ],
           ),
 
-          color: Color.fromARGB(255,234,136,52),
+          color: this.color,
           textColor: Colors.white,
         );
   }
