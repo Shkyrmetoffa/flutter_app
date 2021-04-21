@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "40510966647",
+    "project_id": "halal-flutter-app",
+    "storage_bucket": "halal-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40510966647:android:a04bb44286212ae075ef72",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40510966647-0lgg9fr06oam6dqmhv9n4nmm9ii71at7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_app",
+            "certificate_hash": "9074bebc253f22c0216b0f83a376449e61324103"
+          }
+        },
+        {
+          "client_id": "40510966647-irkq6e5um32lsdpfr1peaokeagek4sdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5i5oCES0MtaNJgR02yPKJkkvZe3KRTAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40510966647-irkq6e5um32lsdpfr1peaokeagek4sdm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "40510966647-p1mkjpr3aurddipee0r1qfejlc7b1gi9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

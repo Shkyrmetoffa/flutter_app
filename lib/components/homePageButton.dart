@@ -16,8 +16,9 @@ class HomePageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
           onPressed: this.onPress,
-          padding: EdgeInsets.all(15.0),
-          child: Column( // Replace with a Row for horizontal icon + text
+          padding: EdgeInsets.only(top: 15, bottom: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,// Replace with a Row for horizontal icon + text
             children: <Widget>[
               Image(
                   image: this.image,

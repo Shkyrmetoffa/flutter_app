@@ -9,6 +9,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Halal Control"
         android:icon="@mipmap/launcher_icon">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCvPyOOtnkVU9ebDBGQOvyQ7XzJ4kSO6mw"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
