@@ -11,13 +11,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  AppLanguage appLanguage = AppLanguage();
-  LocalizedData localizedData = LocalizedData();
-
   @override
   void initState() {
     super.initState();
-    localizedData.getDataFromInitRequest();
   }
 
   @override
@@ -48,6 +44,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 ?.toUpperCase()
             : '';
 
+    void changeLocal(String localeName) {
+      switch (localeName) {
+        case 'en':
+          return appLanguage.changeLanguage(Locale("en"));
+        case 'ru':
+          {
+            if (localized.data.keys.contains('ru')) {
+              return appLanguage.changeLanguage(Locale("ru"));
+            } else {
+              return appLanguage.changeLanguage(Locale("en"));
+            }
+          }
+        case 'lt':
+          {
+            if (localized.data.keys.contains('lt')) {
+              return appLanguage.changeLanguage(Locale("lt"));
+            } else {
+              return appLanguage.changeLanguage(Locale("en"));
+            }
+          }
+        case 'uz':
+          {
+            if (localized.data.keys.contains('uz')) {
+              return appLanguage.changeLanguage(Locale("uz"));
+            } else {
+              return appLanguage.changeLanguage(Locale("en"));
+            }
+          }
+        case 'et':
+          {
+            if (localized.data.keys.contains('et')) {
+              return appLanguage.changeLanguage(Locale("et"));
+            } else {
+              return appLanguage.changeLanguage(Locale("en"));
+            }
+          }
+        default:
+          return appLanguage.changeLanguage(Locale("en"));
+      }
+    }
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -75,55 +111,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   IconButton(
                     icon: Image.asset('images/united-kingdom.png'),
-                    onPressed: () {
-                      appLanguage.changeLanguage(Locale("en"));
-                    },
+                    onPressed: () => changeLocal('en'),
                     tooltip: 'Share',
                   ),
                   IconButton(
                     icon: Image.asset('images/russia.png'),
-                    onPressed: () {
-                      if (localized.data.keys.contains('ru')) {
-                        appLanguage.changeLanguage(Locale("ru"));
-                      } else {
-                        appLanguage.changeLanguage(Locale("en"));
-                      }
-                    },
+                    onPressed: () => changeLocal('ru'),
                     tooltip: 'Share',
                   ),
                 ],
               ),
               IconButton(
                 icon: Image.asset('images/lithuania.png'),
-                onPressed: () {
-                  if (localized.data.keys.contains('lt')) {
-                    appLanguage.changeLanguage(Locale("lt"));
-                  } else {
-                    appLanguage.changeLanguage(Locale("en"));
-                  }
-                },
+                onPressed: () => changeLocal('lt'),
                 tooltip: 'Share',
               ),
               IconButton(
                 icon: Image.asset('images/uz.png'),
-                onPressed: () {
-                  if (localized.data.keys.contains('uz')) {
-                    appLanguage.changeLanguage(Locale("uz"));
-                  } else {
-                    appLanguage.changeLanguage(Locale("en"));
-                  }
-                },
+                onPressed: () => changeLocal('uz'),
                 tooltip: 'Share',
               ),
               IconButton(
                 icon: Image.asset('images/estonia.png'),
-                onPressed: () {
-                  if (localized.data.keys.contains('et')) {
-                    appLanguage.changeLanguage(Locale("et"));
-                  } else {
-                    appLanguage.changeLanguage(Locale("en"));
-                  }
-                },
+                onPressed: () => changeLocal('et'),
                 tooltip: 'Share',
               ),
             ],
@@ -196,13 +206,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(
                     width: double.maxFinite,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/certificate');
                       },
                       child: Text(certificateCheckBtn ?? ''),
-                      color: HexColor.fromHex('#db2d2d'),
-                      textColor: Colors.white,
+                      style: ElevatedButton.styleFrom(
+                          primary: HexColor.fromHex('#db2d2d'),
+                          textStyle: TextStyle(color: Colors.white)),
                     ),
                   ),
                 ]),
