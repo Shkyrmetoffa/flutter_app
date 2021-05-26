@@ -17,34 +17,35 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    localizedData.getDataFromInitRequest();
   }
 
   @override
   Widget build(BuildContext context) {
-    var appLanguage = Provider.of<AppLanguage>(context);
-    var localized = Provider.of<LocalizedData>(context);
+    final appLanguage = Provider.of<AppLanguage>(context);
+    final localized = Provider.of<LocalizedData>(context);
 
     final copyrights =
         localized.data['${appLanguage.appLocal}Copyrights'] != null
             ? localized.data['${appLanguage.appLocal}Copyrights']
             : '';
     final eNumbers = localized.data['${appLanguage.appLocal}Enumbers'] != null
-        ? localized.data['${appLanguage.appLocal}Enumbers'].toUpperCase()
+        ? localized.data['${appLanguage.appLocal}Enumbers']?.toUpperCase()
         : '';
-    final restaurants =
-        localized.data['${appLanguage.appLocal}Restaurants'] != null
-            ? localized.data['${appLanguage.appLocal}Restaurants'].toUpperCase()
-            : '';
+    final restaurants = localized.data['${appLanguage.appLocal}Restaurants'] !=
+            null
+        ? localized.data['${appLanguage.appLocal}Restaurants']?.toUpperCase()
+        : '';
     final hotels = localized.data['${appLanguage.appLocal}Hotels'] != null
-        ? localized.data['${appLanguage.appLocal}Hotels'].toUpperCase()
+        ? localized.data['${appLanguage.appLocal}Hotels']?.toUpperCase()
         : '';
     final products = localized.data['${appLanguage.appLocal}Products'] != null
-        ? localized.data['${appLanguage.appLocal}Products'].toUpperCase()
+        ? localized.data['${appLanguage.appLocal}Products']?.toUpperCase()
         : '';
     final certificateCheckBtn =
         localized.data['${appLanguage.appLocal}CertificateCheckBtn'] != null
             ? localized.data['${appLanguage.appLocal}CertificateCheckBtn']
-                .toUpperCase()
+                ?.toUpperCase()
             : '';
 
     return Scaffold(
@@ -199,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         Navigator.pushNamed(context, '/certificate');
                       },
-                      child: Text(certificateCheckBtn),
+                      child: Text(certificateCheckBtn ?? ''),
                       color: HexColor.fromHex('#db2d2d'),
                       textColor: Colors.white,
                     ),
@@ -213,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Opacity(
                 opacity: 0.5,
                 child: Text(
-                  copyrights,
+                  copyrights ?? '',
                   style: TextStyle(
                     color: Colors.white,
                   ),

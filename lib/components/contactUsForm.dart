@@ -38,7 +38,7 @@ class ContactUsFormState extends State<ContactUsForm> {
     var localized = Provider.of<LocalizedData>(context);
 
     final contactUs =
-    localized.data['${appLanguage.appLocal}ContactUs'].toUpperCase();
+    localized.data['${appLanguage.appLocal}ContactUs']?.toUpperCase();
     final contactFormName =
     localized.data['${appLanguage.appLocal}ContactFormName'];
     final contactFormEmail =
@@ -66,12 +66,12 @@ class ContactUsFormState extends State<ContactUsForm> {
     final sendFormMessage = localized
         .data['${appLanguage.appLocal}SendFormMessage'];
     final sendMessageBtn = localized
-        .data['${appLanguage.appLocal}SendMessageBtn'].toUpperCase();
+        .data['${appLanguage.appLocal}SendMessageBtn']?.toUpperCase();
 
     return Scaffold(
         appBar: AppBar(
             title: Text(
-              contactUs,
+              contactUs ?? '',
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
@@ -89,7 +89,7 @@ class ContactUsFormState extends State<ContactUsForm> {
               color: HexColor.fromHex('#363636'),
               child: FormBuilder(
                 key: _fbKey,
-                readOnly: false,
+                // readOnly: false,
                 child: ListView(
                   padding: EdgeInsets.all(20.0),
                   children: <Widget>[
@@ -100,7 +100,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                contactFormName,
+                                contactFormName ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -108,7 +108,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'name',
+                                name: 'name',
                                 style: TextStyle(
                                     color: HexColor.fromHex('#363636'),
                                     fontSize: 18,
@@ -125,10 +125,8 @@ class ContactUsFormState extends State<ContactUsForm> {
                                       color: HexColor.fromHex('#ff3b30'),
                                   ),
                                 ),
-                                validators: [
-                                  FormBuilderValidators.required(errorText:
-                                  sendFormError),
-                                ],
+                                validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText:
+                                    sendFormError)]),
                               ),
                             ])),
                     Container(
@@ -138,7 +136,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                contactFormEmail,
+                                contactFormEmail ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -146,7 +144,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'email',
+                                name: 'email',
                                 style: TextStyle(
                                     color: HexColor.fromHex('#363636'),
                                     fontSize: 18,
@@ -163,11 +161,10 @@ class ContactUsFormState extends State<ContactUsForm> {
                                       color: HexColor.fromHex('#ff3b30')
                                   ),
                                 ),
-                                validators: [
-                                  FormBuilderValidators.required(errorText:
+                                validator:
+                                FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText:
                                   sendFormError),
-                                  FormBuilderValidators.email()
-                                ],
+                                  FormBuilderValidators.email(context)]),
                               ),
                             ])),
                     Container(
@@ -177,7 +174,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                contactFormPhoneNumber,
+                                contactFormPhoneNumber ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -185,7 +182,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'mobile',
+                                name: 'mobile',
                                 style: TextStyle(
                                     color: HexColor.fromHex('#363636'),
                                     fontSize: 18,
@@ -203,15 +200,15 @@ class ContactUsFormState extends State<ContactUsForm> {
                                     color: HexColor.fromHex('#ff3b30')
                                   ),
                                 ),
-                                validators: [
-                                  FormBuilderValidators.required(
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context,
                                       errorText: sendFormError
                                   ),
-                                  FormBuilderValidators.numeric(
+                                  FormBuilderValidators.numeric(context,
                                       errorText:
                                       "Please enter your Phone number"
                                   )
-                                ],
+                                ]),
                               ),
                             ])),
                     Container(
@@ -221,7 +218,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                contactFormSubject,
+                                contactFormSubject ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -229,7 +226,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'subject',
+                                name: 'subject',
                                 style: TextStyle(
                                     color: HexColor.fromHex('#363636'),
                                     fontSize: 18,
@@ -246,11 +243,11 @@ class ContactUsFormState extends State<ContactUsForm> {
                                       color: HexColor.fromHex('#ff3b30')
                                   ),
                                 ),
-                                validators: [
-                                  FormBuilderValidators.required(
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context,
                                       errorText: sendFormError
                                   ),
-                                ],
+                                ]),
                               ),
                             ])),
                     Container(
@@ -260,7 +257,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                contactFormMessage,
+                                contactFormMessage ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -268,7 +265,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'message',
+                                name: 'message',
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 4,
                                 style: TextStyle(
@@ -287,11 +284,11 @@ class ContactUsFormState extends State<ContactUsForm> {
                                       color: HexColor.fromHex('#ff3b30')
                                   ),
                                 ),
-                                validators: [
-                                  FormBuilderValidators.required(
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context,
                                       errorText: sendFormError
                                   ),
-                                ],
+                                ]),
                               ),
                             ])),
                     RichText(
@@ -313,7 +310,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
                                 final url =
-                                    termsLink;
+                                    termsLink ?? '';
                                 if (await canLaunch(url)) {
                                   await launch(
                                     url,
@@ -335,7 +332,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
                                 final url =
-                                    privacyLink;
+                                    privacyLink ?? '';
                                 if (await canLaunch(url)) {
                                   await launch(
                                     url,
@@ -356,8 +353,8 @@ class ContactUsFormState extends State<ContactUsForm> {
                       onPressed: () {
                         String mailBody = '';
 
-                        _fbKey.currentState.save();
-                        _fbKey.currentState.value.forEach((key, value) {
+                        _fbKey.currentState?.save();
+                        _fbKey.currentState?.value.forEach((key, value) {
                           mailBody +=
                               '<table border="1" cellpadding="0"cellspacing="0" width="100" style="background: grey">'
                               '<tr>'
@@ -365,7 +362,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                               '<td>$value</td></tr></table>';
                         });
 
-                        if (_fbKey.currentState.validate()) {
+                        if (_fbKey.currentState!.validate()) {
                           httpService.sendMail(
                               'hclmobapp@gmail.com',
                               'Hcl_mob_34858316',
@@ -388,12 +385,12 @@ class ContactUsFormState extends State<ContactUsForm> {
                                   Navigator.of(context).pop(true);
                                 });
                                 return AlertDialog(
-                                  content: Text(sendFormMessage,
+                                  content: Text(sendFormMessage ?? '',
                                     style: TextStyle(fontSize: 16, color: HexColor.fromHex('#363636')),),
                                 );
                               });
                         } else {
-                          print(_fbKey.currentState.value);
+                          print(_fbKey.currentState?.value);
                           print("validation failed");
                         }
                       },
@@ -404,7 +401,7 @@ class ContactUsFormState extends State<ContactUsForm> {
                         width: 16,
                         height: 16,
                       ),
-                      label: Text(sendMessageBtn),
+                      label: Text(sendMessageBtn ?? ''),
                       color: HexColor.fromHex('#db2d2d'),
                       textColor: Colors.white,
                     ),

@@ -4,12 +4,6 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<advance_pdf_viewer/FlutterPluginPdfViewerPlugin.h>)
-#import <advance_pdf_viewer/FlutterPluginPdfViewerPlugin.h>
-#else
-@import advance_pdf_viewer;
-#endif
-
 #if __has_include(<cloud_firestore/FLTFirebaseFirestorePlugin.h>)
 #import <cloud_firestore/FLTFirebaseFirestorePlugin.h>
 #else
@@ -32,12 +26,6 @@
 #import <flutter_email_sender/FlutterEmailSenderPlugin.h>
 #else
 @import flutter_email_sender;
-#endif
-
-#if __has_include(<flutter_keyboard_visibility/FlutterKeyboardVisibilityPlugin.h>)
-#import <flutter_keyboard_visibility/FlutterKeyboardVisibilityPlugin.h>
-#else
-@import flutter_keyboard_visibility;
 #endif
 
 #if __has_include(<flutter_mailer/FlutterMailerPlugin.h>)
@@ -76,10 +64,10 @@
 @import path_provider;
 #endif
 
-#if __has_include(<phone_number/PhoneNumberPlugin.h>)
-#import <phone_number/PhoneNumberPlugin.h>
+#if __has_include(<pdf_viewer_jk/PdfViewerJkPlugin.h>)
+#import <pdf_viewer_jk/PdfViewerJkPlugin.h>
 #else
-@import phone_number;
+@import pdf_viewer_jk;
 #endif
 
 #if __has_include(<shared_preferences/FLTSharedPreferencesPlugin.h>)
@@ -103,19 +91,17 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [FlutterPluginPdfViewerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterPluginPdfViewerPlugin"]];
   [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FlutterEmailSenderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterEmailSenderPlugin"]];
-  [FlutterKeyboardVisibilityPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterKeyboardVisibilityPlugin"]];
   [FlutterMailerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterMailerPlugin"]];
   [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [LocationPlugin registerWithRegistrar:[registry registrarForPlugin:@"LocationPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
-  [PhoneNumberPlugin registerWithRegistrar:[registry registrarForPlugin:@"PhoneNumberPlugin"]];
+  [PdfViewerJkPlugin registerWithRegistrar:[registry registrarForPlugin:@"PdfViewerJkPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];

@@ -28,26 +28,28 @@ class ReportFraudFormState extends State<ReportFraudForm> {
   // String ANDROID_API_KEY = '62567217-323E-4FE9-98CC-51D9BBCE7568';
   // String IOS_API_KEY = 'A6B6A7EA-AE8F-4072-9735-54D9DD7D3699';
 
-  File _image;
+  // File? _image;
+  PickedFile? _imageFile;
   List _images = [];
+  final ImagePicker _picker = ImagePicker();
 
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
+    PickedFile? image = await _picker.getImage(
         source: ImageSource.camera, maxWidth: 480, maxHeight: 600);
 
     setState(() {
-      _image = image;
-      _images.add(_image.path.toString());
+      _imageFile = image;
+      _images.add(_imageFile?.path.toString());
     });
   }
 
   _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
+    PickedFile? image = await _picker.getImage(
         source: ImageSource.gallery, maxWidth: 480, maxHeight: 600);
 
     setState(() {
-      _image = image;
-      _images.add(_image.path.toString());
+      _imageFile = image;
+      _images.add(_imageFile?.path.toString());
     });
   }
 
@@ -126,7 +128,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
     var localized = Provider.of<LocalizedData>(context);
 
     final reportFraud =
-        localized.data['${appLanguage.appLocal}ReportFraud'].toUpperCase();
+        localized.data['${appLanguage.appLocal}ReportFraud']?.toUpperCase();
     final emailFraud =
         localized.data['${appLanguage.appLocal}MobileEmailFraud'];
     final uploadImageFraud =
@@ -144,7 +146,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
     var typesOfFraud = [fraudType1, fraudType2, fraudType3];
 
     final sendMessageBtn =
-        localized.data['${appLanguage.appLocal}SendMessageBtn'].toUpperCase();
+        localized.data['${appLanguage.appLocal}SendMessageBtn']?.toUpperCase();
     final chooseImageBtn =
         localized.data['${appLanguage.appLocal}ChooseImage'];
     final takeAPhotoBtn =
@@ -155,11 +157,13 @@ class ReportFraudFormState extends State<ReportFraudForm> {
         .data['${appLanguage.appLocal}Cancel'];
     final sendFormMessage = localized
         .data['${appLanguage.appLocal}SendFormMessage'];
+    final sendFormError = localized
+        .data['${appLanguage.appLocal}SendFormError'];
 
     return Scaffold(
         appBar: AppBar(
             title: Text(
-              reportFraud,
+              reportFraud ?? '',
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
@@ -177,7 +181,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
               color: HexColor.fromHex('#363636'),
               child: FormBuilder(
                 key: _fbKey,
-                readOnly: false,
+                // readOnly: false,
                 child: ListView(
                   padding: EdgeInsets.all(20.0),
                   children: <Widget>[
@@ -188,7 +192,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                emailFraud,
+                                emailFraud ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -196,7 +200,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'email',
+                                name: 'email',
                                 style: TextStyle(
                                     color: HexColor.fromHex('#363636'),
                                     fontSize: 18,
@@ -219,10 +223,11 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                                       fontSize: 16.0,
                                       color: HexColor.fromHex('#ff3b30')),
                                 ),
-                                validators: [
-                                  FormBuilderValidators.required(),
-                                  FormBuilderValidators.email()
-                                ],
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(context, errorText:
+                                      sendFormError),
+                                  FormBuilderValidators.email(context)
+                                ]),
                               ),
                             ])),
                     Container(
@@ -232,7 +237,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                uploadImageFraud,
+                                uploadImageFraud ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -302,7 +307,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                                   ),
                                   padding: EdgeInsets.only(
                                       top: 9, bottom: 9, left: 16, right: 16),
-                                  child: Text(chooseImageBtn),
+                                  child: Text(chooseImageBtn ?? ''),
                                   color: HexColor.fromHex('#28934b'),
                                   textColor: Colors.white,
                                 ),
@@ -315,7 +320,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                typeOfFraud,
+                                typeOfFraud ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -323,7 +328,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderDropdown(
-                                attribute: 'type of fraud',
+                                name: 'type of fraud',
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.only(
                                       top: 13, bottom: 14, left: 16, right: 16),
@@ -337,16 +342,16 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                                 ),
                                 allowClear: false,
                                 // initialValue: 'Male',
-                                hint: Text(typesOfFraud.first,
+                                hint: Text(typesOfFraud.first ?? '',
                                     style: TextStyle(
                                       color: HexColor.fromHex('#363636'),
                                       fontSize: 18,
                                     )),
-                                validators: [FormBuilderValidators.required()],
+                                validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: sendFormError)]),
                                 items: typesOfFraud
                                     .map((type) => DropdownMenuItem(
                                           value: type.toString(),
-                                          child: Text(type),
+                                          child: Text(type ?? ''),
                                         ))
                                     .toList(),
                                 isExpanded: false,
@@ -359,7 +364,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                message,
+                                message ?? '',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -367,7 +372,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                               ),
                               SizedBox(height: 6),
                               FormBuilderTextField(
-                                attribute: 'message',
+                                name: 'message',
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 4,
                                 style: TextStyle(
@@ -391,8 +396,8 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                     RaisedButton.icon(
                       onPressed: () {
                         String mailBody = '';
-                        _fbKey.currentState.save();
-                        _fbKey.currentState.value.forEach((key, value) {
+                        _fbKey.currentState?.save();
+                        _fbKey.currentState?.value.forEach((key, value) {
                           mailBody +=
                               '<table border="1" cellpadding="0" cellspacing="0" width="100" style="background: grey">'
                               '<tr>'
@@ -402,7 +407,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
 
                         // mailer
 
-                        if (_fbKey.currentState.validate()) {
+                        if (_fbKey.currentState!.validate()) {
                           httpService.sendMail(
                               'shkyrmetoffa@gmail.com',
                               'TimurFilipp0705',
@@ -421,7 +426,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                                 });
                                 return AlertDialog(
                                   content: Text(
-                                    sendFormMessage,
+                                    sendFormMessage ?? '',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: HexColor.fromHex('#363636')),
@@ -429,7 +434,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                                 );
                               });
                         } else {
-                          print(_fbKey.currentState.value);
+                          print(_fbKey.currentState?.value);
                           print("validation failed");
                         }
                       },
@@ -440,7 +445,7 @@ class ReportFraudFormState extends State<ReportFraudForm> {
                         width: 16,
                         height: 16,
                       ),
-                      label: Text(sendMessageBtn),
+                      label: Text(sendMessageBtn ?? ''),
                       color: HexColor.fromHex('#db2d2d'),
                       textColor: Colors.white,
                     ),

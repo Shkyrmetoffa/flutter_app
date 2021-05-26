@@ -13,8 +13,8 @@ class ProductsScreen extends StatefulWidget {
 class ProductsScreenState extends State<ProductsScreen> {
   AppLanguage appLanguage = AppLanguage();
   LocalizedData localizedData = LocalizedData();
-  List<Product> productsList = List();
-  List<Product> filteredProductsList = List();
+  List<Product> productsList = [];
+  List<Product> filteredProductsList = [];
   final HttpService httpService = HttpService();
   TextEditingController idController = TextEditingController();
 
@@ -37,11 +37,11 @@ class ProductsScreenState extends State<ProductsScreen> {
     var localized = Provider.of<LocalizedData>(context);
 
     final products =
-    localized.data['${appLanguage.appLocal}Products'].toUpperCase();
+    localized.data['${appLanguage.appLocal}Products']?.toUpperCase();
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(products),
+          title: Text(products ?? ''),
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
@@ -75,11 +75,8 @@ class ProductsScreenState extends State<ProductsScreen> {
                     onChanged: (value) {
                       setState(() {
                         filteredProductsList = productsList.where((element) {
-                          return element
-                              .categories_products.first.category_product
-                              .toString()
-                              .toLowerCase()
-                              .contains(value.toLowerCase());
+                          String? checkedStr = element.categories_products?.first.category_product.toString() ?? '';
+                          return checkedStr.toLowerCase().contains(value.toLowerCase());
                         }).toList();
                       });
                     },
@@ -97,8 +94,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                           itemBuilder: (context, ind) {
                             var item = filteredProductsList[ind];
                             if (item.categories_products != null) {
-                              var category = item
-                                  .categories_products.first.category_product
+                              var category = item.categories_products?.first.category_product
                                   .toString();
                               return Card(
                                 margin: EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
@@ -107,7 +103,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                                     children: <Widget>[
                                       ListTile(
                                         title: Text(
-                                          category,
+                                          category ?? '',
                                           style: TextStyle(
                                             color: HexColor.fromHex('#96c42d'),
                                             fontSize: 18,

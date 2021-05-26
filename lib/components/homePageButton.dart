@@ -9,8 +9,8 @@ class HomePageButton extends StatelessWidget {
 
   final image;
   final color;
-  final String label;
-  final Function onPress;
+  final String? label;
+  final void Function()? onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class HomePageButton extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 8),
-                child: Text(this.label)
+                child: Text(this.label ?? '')
               )
             ],
           ),

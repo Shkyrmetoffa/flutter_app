@@ -21,7 +21,7 @@ class MenuScreen extends StatelessWidget {
     var appLanguage = Provider.of<AppLanguage>(context);
     var localized = Provider.of<LocalizedData>(context);
 
-    final halalControlLithuania = localized.data['${appLanguage.appLocal}HalalControlLithuania'].toUpperCase();
+    final halalControlLithuania = localized.data['${appLanguage.appLocal}HalalControlLithuania']?.toUpperCase();
     final aboutUs = localized.data['${appLanguage.appLocal}AboutUs'];
     final aboutUsTerms = localized.data['${appLanguage.appLocal}AboutUsTerms'];
     final aboutUsPrivacy = localized.data['${appLanguage.appLocal}AboutUsPrivacy'];
@@ -32,7 +32,7 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            halalControlLithuania,
+            halalControlLithuania ?? '',
             style: TextStyle(fontSize: 18),
             textAlign: TextAlign.center,
           ),
@@ -67,7 +67,7 @@ class MenuScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 30),
                         child: Text(
-                          aboutUs,
+                          aboutUs ?? '',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
@@ -130,7 +130,7 @@ class MenuScreen extends StatelessWidget {
                                     aboutUsTermsLink);
                               },
                               child: Text(
-                                aboutUsTerms,
+                                aboutUsTerms ?? '',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
@@ -141,7 +141,7 @@ class MenuScreen extends StatelessWidget {
                                     aboutUsPrivacyLink);
                               },
                               child: Text(
-                                aboutUsPrivacy,
+                                aboutUsPrivacy ?? '',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
@@ -164,7 +164,7 @@ class MenuScreen extends StatelessWidget {
           child: Opacity(
               opacity: 0.5,
               child: Text(
-                copyrights,
+                copyrights ?? '',
                 style: TextStyle(
                   color: Colors.white,
                 ),

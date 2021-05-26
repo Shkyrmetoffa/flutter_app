@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app_localizations.dart';
+import 'package:flutter_app/models/post_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import '../extensions/extensions.dart';
 
 class RestaurantOnMapScreen extends StatefulWidget {
-  final List restaurantsList;
+  final List? restaurantsList;
 
   RestaurantOnMapScreen({this.restaurantsList});
 
@@ -19,11 +20,17 @@ class RestaurantOnMapScreenState extends State<RestaurantOnMapScreen> {
   LocalizedData localizedData = LocalizedData();
   Set<Marker> _markers = {};
   List restaurants = [];
+  double pinPillPosition = -110;
+  String? restName;
+  String? restAddress;
 
   @override
   void initState() {
     super.initState();
-    widget.restaurantsList.forEach((item) {
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    widget.restaurantsList?.forEach((item) {
       if (item.description_restaurants != null) {
         setState(() {
           restaurants.add(item.address_restaurants);
@@ -33,30 +40,26 @@ class RestaurantOnMapScreenState extends State<RestaurantOnMapScreen> {
                   item.address_restaurants.lat, item.address_restaurants.lng),
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueCyan),
-              onTap: (){
-              }
-          ));
+              onTap: () {
+                setState(() {
+                  restName = item.description_restaurants;
+                  restAddress = item.address_restaurants.address;
+                  pinPillPosition = 0;
+                });
+              }));
         });
       }
-    }
-    );
+    });
   }
-
-  void _onMapCreated(GoogleMapController controller) {
-
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
     var appLanguage = Provider.of<AppLanguage>(context);
     var localized = Provider.of<LocalizedData>(context);
     final RestaurantsOnMap =
-    localized.data['${appLanguage.appLocal}RestaurantsOnMap'] != null
-        ? localized.data['${appLanguage.appLocal}RestaurantsOnMap'].toUpperCase()
-        : '';
-
+        localized.data['${appLanguage.appLocal}RestaurantsOnMap']?.toUpperCase() ?? '';
+    ;
+    restName != null ? print(restName) : '';
     return Scaffold(
         appBar: AppBar(
             title: Text(RestaurantsOnMap),
@@ -69,17 +72,71 @@ class RestaurantOnMapScreenState extends State<RestaurantOnMapScreen> {
               ),
             ),
             backgroundColor: HexColor.fromHex('#8358ad')),
-        body: _markers.length != 0 ?
-        GoogleMap(
-          onMapCreated: _onMapCreated,
-          markers: _markers.length != 0 ? _markers : [],
-          initialCameraPosition: CameraPosition(target:
-          LatLng(restaurants.first.lat, restaurants.first.lng), zoom: restaurants.first.zoom),
-        ) : GoogleMap(
-          onMapCreated: _onMapCreated,
-          // markers: _markers.length != 0 ? _markers : [],
-          initialCameraPosition: CameraPosition(target:
-          LatLng(0.toDouble(), 0.toDouble()), zoom: 0.toDouble()),
-        ));
+        body: Stack(children: <Widget>[
+          _markers.length != 0
+              ? GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  markers: _markers,
+                  initialCameraPosition: CameraPosition(
+                      target:
+                          LatLng(restaurants.first.lat, restaurants.first.lng),
+                      zoom: restaurants.first.zoom),
+            onTap: (latlang) {
+              setState(() {
+                restName = ''; // should check  with multiple data markers
+                restAddress = '';
+                pinPillPosition = -110;
+              });
+            },
+                )
+              : GoogleMap(
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(0.toDouble(), 0.toDouble()),
+                      zoom: 0.toDouble()),
+                ),
+          AnimatedPositioned(
+              top: pinPillPosition, right: 0, left: 0,
+              duration: Duration(milliseconds: 200),
+              child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(top: 12, bottom: 12),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                blurRadius: 20,
+                                offset: Offset.zero,
+                                color: Colors.grey.withOpacity(0.5)
+                            )]
+                      ),
+                      child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    title: Text(
+                                      restName ?? '',
+                                      style: TextStyle(
+                                          color: HexColor.fromHex('#4f95c7'),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      restAddress ?? '',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: HexColor.fromHex('#363636')
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                  )  // end of Container
+              )  // end of Align
+          )
+        ]));
   }
 }

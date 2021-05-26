@@ -13,13 +13,12 @@ import 'package:provider/provider.dart';
 class HttpService {
 
   Future<List<Localized>> getLocalizedText(url) async {
-    Response res = await get(url);
+    Response res = await get(Uri.parse(url));
 
     if(res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
 
       List<Localized> localized = body.map((dynamic item) => Localized.fromJson(item)).toList();
-
       return localized;
     } else {
       throw('Can"t get translations');
@@ -29,7 +28,7 @@ class HttpService {
    Future<List<Post>> getPosts(locale) async {
      final url = '${BaseUrl(locale).url.toString()}/?per_page=100';
 
-     Response res = await get(url);
+     Response res = await get(Uri.parse(url));
 
     if(res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -45,7 +44,7 @@ class HttpService {
   Future<List<Product>> getProducts(locale) async {
     final url = BaseUrl(locale).url.toString();
 
-    Response res = await get(url);
+    Response res = await get(Uri.parse(url));
 
     if(res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -61,7 +60,7 @@ class HttpService {
   Future<List<Hotels>> getHotels(locale) async {
     final url = BaseUrl(locale).url.toString();
 
-    Response res = await get(url);
+    Response res = await get(Uri.parse(url));
 
     if(res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -76,7 +75,7 @@ class HttpService {
   Future<List<Restaurants>> getRestaurants(locale) async {
     final url = BaseUrl(locale).url.toString();
 
-    Response res = await get(url);
+    Response res = await get(Uri.parse(url));
 
     if(res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);

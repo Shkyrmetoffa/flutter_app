@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/app_localizations.dart';
 import 'package:flutter_app/components/starDisplay.dart';
 import 'package:flutter_app/http_service.dart';
+import 'package:flutter_app/pages/hotelDescription.dart';
 import 'package:flutter_app/pages/hotelOnMap.dart';
 import 'package:provider/provider.dart';
 import '../models/post_model.dart';
@@ -15,8 +16,8 @@ class HotelScreen extends StatefulWidget {
 class HotelScreenState extends State<HotelScreen> {
   AppLanguage appLanguage = AppLanguage();
   LocalizedData localizedData = LocalizedData();
-  List<Hotels> hotelsList = List();
-  List<Hotels> filteredHotelsList = List();
+  List<Hotels> hotelsList = [];
+  List<Hotels> filteredHotelsList = [];
   final HttpService httpService = HttpService();
   TextEditingController idController = TextEditingController();
 
@@ -38,11 +39,11 @@ class HotelScreenState extends State<HotelScreen> {
     var localized = Provider.of<LocalizedData>(context);
 
     final hotels = localized.data['${appLanguage.appLocal}Hotels'] != null
-        ? localized.data['${appLanguage.appLocal}Hotels'].toUpperCase()
+        ? localized.data['${appLanguage.appLocal}Hotels']?.toUpperCase()
         : '';
     return Scaffold(
         appBar: AppBar(
-            title: Text(hotels),
+            title: Text(hotels ?? ''),
             leading: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -73,7 +74,7 @@ class HotelScreenState extends State<HotelScreen> {
                     onChanged: (value) {
                       setState(() {
                         filteredHotelsList = hotelsList.where((element) {
-                          return element.description_hotels
+                          return element.nameOfHotels
                               .toString()
                               .toLowerCase()
                               .contains(value.toLowerCase());
@@ -103,11 +104,10 @@ class HotelScreenState extends State<HotelScreen> {
                           itemCount: filteredHotelsList.length,
                           itemBuilder: (context, ind) {
                             var item = filteredHotelsList[ind];
-                            if (item.description_hotels != null) {
-                              var category = item.description_hotels.toString();
-                              var stars = int.parse(item.hotel_stars);
-                              var address = item.address_hotels.address.toString();
-
+                            if (item.nameOfHotels != null) {
+                              var category = item.nameOfHotels.toString();
+                              var stars = int.parse(item.hotelStars ?? '');
+                              var address = item.addressHotels?.address.toString();
                               return Card(
                                 margin: EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0 ),
                                   clipBehavior: Clip.antiAlias,
@@ -120,7 +120,7 @@ class HotelScreenState extends State<HotelScreen> {
                                                       '#8358ad'),
                                                   fontWeight: FontWeight.w600
                                               )),
-                                          subtitle: Text(address,
+                                          subtitle: Text(address ?? '',
                                               style: TextStyle(
                                                   color: HexColor.fromHex(
                                                       '#363636'),
@@ -133,15 +133,11 @@ class HotelScreenState extends State<HotelScreen> {
                                             unfilledStar: Icon(Icons.star,
                                                 color: HexColor.fromHex(
                                                     '#e5e5e5')),
-                                          )),
-                                      // StarDisplayWidget(
-                                      //   value: stars,
-                                      //   filledStar: Icon(Icons.star, color: HexColor.fromHex('#ffaf41')),
-                                      //   unfilledStar: Icon(Icons.star, color: HexColor.fromHex('#e5e5e5')),
-                                      // ),
-                                      // ListTile(
-                                      //   title: Text(address),
-                                      // ),
+                                          ),
+                                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                                          HotelDescription(data: item))),
+                                      ),
+
                                     ],
                                   ));
                             }

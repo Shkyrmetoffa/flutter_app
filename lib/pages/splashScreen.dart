@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
-import 'package:flutter_app/pages/homeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -28,8 +26,7 @@ class _SplashState extends State<SplashScreen> {
   }
 
   route() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    Navigator.pushNamed(context, '/home');
   }
 
   initScreen(BuildContext context) {
@@ -73,8 +70,8 @@ class LinearCustomProgressIndicator extends StatefulWidget {
 class LinearCustomProgressIndicatorState
     extends State<LinearCustomProgressIndicator>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
+  AnimationController? controller;
+  Animation<double>? animation;
 
   @override
   void initState() {
@@ -82,16 +79,16 @@ class LinearCustomProgressIndicatorState
     controller = AnimationController(
         duration: const Duration(milliseconds: 5000), vsync: this);
 
-    animation = Tween(begin: 0.0, end: 2.0).animate(controller)
+    animation = Tween(begin: 0.0, end: 2.0).animate(controller!)
       ..addListener(() {
         setState(() {});
       });
-    controller.repeat();
+    controller?.repeat();
   }
 
   @override
   void dispose() {
-    controller.stop();
+    controller?.stop();
     super.dispose();
   }
 
@@ -102,7 +99,7 @@ class LinearCustomProgressIndicatorState
       width: 160,
       height: 2,
       child: LinearProgressIndicator(
-        value: animation.value,
+        value: animation?.value,
         backgroundColor: Colors.white,
         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
       ),

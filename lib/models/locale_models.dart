@@ -1,85 +1,85 @@
 import 'package:flutter/material.dart';
 
 class Localized {
-  final String mob_copyrights;
-  final String halal_control_lithuania;
-  final String mobile_e_numbers;
-  final String mobile_restaurants;
-  final String mobile_restaurants_on_map;
-  final String mobile_hotels;
-  final String mobile_hotels_on_map;
-  final String mobile_products;
-  final String mobile_certificate_check;
-  final String mobile_contact_us;
-  final String mobile_report_fraud;
+  final String? mob_copyrights;
+  final String? halal_control_lithuania;
+  final String? mobile_e_numbers;
+  final String? mobile_restaurants;
+  final String? mobile_restaurants_on_map;
+  final String? mobile_hotels;
+  final String? mobile_hotels_on_map;
+  final String? mobile_products;
+  final String? mobile_certificate_check;
+  final String? mobile_contact_us;
+  final String? mobile_report_fraud;
   //langs
-  final String mobile_lang;
-  final String mobile_en;
-  final String mobile_lt;
-  final String mobile_ru;
-  final String mobile_es;
-  final String mobile_uz;
+  final String? mobile_lang;
+  final String? mobile_en;
+  final String? mobile_lt;
+  final String? mobile_ru;
+  final String? mobile_es;
+  final String? mobile_uz;
   //buttons
-  final String mobile_send_message;
-  final String mobile_certificate_check_button;
-  final String mobile_report_fraud2;
-  final String mobile_open_in_pdf;
+  final String? mobile_send_message;
+  final String? mobile_certificate_check_button;
+  final String? mobile_report_fraud2;
+  final String? mobile_open_in_pdf;
 
-  final String mobile_about_us;
+  final String? mobile_about_us;
 //contact us form
-  final String mobile_form_name;
-  final String mobile_form_email;
-  final String mobile_form_phone_number;
-  final String mobile_form_subject;
-  final String mobile_form_message;
-  final String contact_form_text;
-  final String contact_form_terms;
-  final String contact_form_and;
-  final String contact_form_privacy;
-  final String contact_form_lastText;
+  final String? mobile_form_name;
+  final String? mobile_form_email;
+  final String? mobile_form_phone_number;
+  final String? mobile_form_subject;
+  final String? mobile_form_message;
+  final String? contact_form_text;
+  final String? contact_form_terms;
+  final String? contact_form_and;
+  final String? contact_form_privacy;
+  final String? contact_form_lastText;
 
-  final String mobile_certificate_check_not_found;
-  final String mobile_certificate_check_empty;
+  final String? mobile_certificate_check_not_found;
+  final String? mobile_certificate_check_empty;
   //other buttons
-  final String mobile_take_a_photo;
-  final String mobile_choose_from_gallery;
-  final String mobile_upload;
-  final String mobile_use_camera;
-  final String mobile_cancel;
-  final String mobile_cancel2;
-  final String mobile_ok;
-  final String upload_image;
+  final String? mobile_take_a_photo;
+  final String? mobile_choose_from_gallery;
+  final String? mobile_upload;
+  final String? mobile_use_camera;
+  final String? mobile_cancel;
+  final String? mobile_cancel2;
+  final String? mobile_ok;
+  final String? upload_image;
 
-  final String mobile_send_form_error;
-  final String mobile_form_sent_message;
+  final String? mobile_send_form_error;
+  final String? mobile_form_sent_message;
   //fraud form
-  final String mobile_email_fraud;
-  final String mobile_upload_image_fraud;
-  final String mobile_type_of_fraud;
-  final String message;
-  final String choose_image;
+  final String? mobile_email_fraud;
+  final String? mobile_upload_image_fraud;
+  final String? mobile_type_of_fraud;
+  final String? message;
+  final String? choose_image;
 
-  final String mobile_fraud_type1;
-  final String mobile_fraud_type2;
-  final String mobile_fraud_type3;
+  final String? mobile_fraud_type1;
+  final String? mobile_fraud_type2;
+  final String? mobile_fraud_type3;
 //certificate info
-  final String mobile_ceft_id_no;
-  final String mobile_ceft_status;
-  final String mobile_certificate_valid_until;
+  final String? mobile_ceft_id_no;
+  final String? mobile_ceft_status;
+  final String? mobile_certificate_valid_until;
 
-  final String mobile_muslim_friendly;
-  final String mobile_certificate_check_bold_text;
-  final String mobile_certificate_check_text;
+  final String? mobile_muslim_friendly;
+  final String? mobile_certificate_check_bold_text;
+  final String? mobile_certificate_check_text;
 
-  final String terms;
-  final String privacy;
-  final String termslink;
-  final String privacylink;
+  final String? terms;
+  final String? privacy;
+  final String? termslink;
+  final String? privacylink;
 //Search fields
-  final String numbers;
-  final String restaurants;
-  final String products;
-  final String hotels;
+  final String? numbers;
+  final String? restaurants;
+  final String? products;
+  final String? hotels;
 
   Localized({
     this.mob_copyrights,
@@ -483,16 +483,16 @@ class Localized {
 }
 
 class MobilePageNameList {
-  final String halal_control_lithuania;
-  final String mobile_e_numbers;
-  final String mobile_restaurants;
-  final String mobile_restaurants_on_map;
-  final String mobile_hotels;
-  final String mobile_hotels_on_map;
-  final String mobile_products;
-  final String mobile_certificate_check;
-  final String mobile_contact_us;
-  final String mobile_report_fraud;
+  final String? halal_control_lithuania;
+  final String? mobile_e_numbers;
+  final String? mobile_restaurants;
+  final String? mobile_restaurants_on_map;
+  final String? mobile_hotels;
+  final String? mobile_hotels_on_map;
+  final String? mobile_products;
+  final String? mobile_certificate_check;
+  final String? mobile_contact_us;
+  final String? mobile_report_fraud;
 
   MobilePageNameList(
       {this.halal_control_lithuania,
@@ -539,12 +539,12 @@ class MobilePageNameList {
 }
 
 class MobileLanguagesList {
-  final String mobile_lang;
-  final String mobile_en;
-  final String mobile_lt;
-  final String mobile_ru;
-  final String mobile_es;
-  final String mobile_uz;
+  final String? mobile_lang;
+  final String? mobile_en;
+  final String? mobile_lt;
+  final String? mobile_ru;
+  final String? mobile_es;
+  final String? mobile_uz;
 
   MobileLanguagesList(
       {this.mobile_lang,
@@ -578,10 +578,10 @@ class MobileLanguagesList {
 }
 
 class MobileButtonsList {
-  final String mobile_send_message;
-  final String mobile_certificate_check_button;
-  final String mobile_report_fraud2;
-  final String mobile_open_in_pdf;
+  final String? mobile_send_message;
+  final String? mobile_certificate_check_button;
+  final String? mobile_report_fraud2;
+  final String? mobile_open_in_pdf;
 
   MobileButtonsList(
       {this.mobile_send_message,
@@ -610,11 +610,11 @@ class MobileButtonsList {
 }
 
 class MobileContactFormList {
-  final String mobile_form_name;
-  final String mobile_form_email;
-  final String mobile_form_phone_number;
-  final String mobile_form_subject;
-  final String mobile_form_message;
+  final String? mobile_form_name;
+  final String? mobile_form_email;
+  final String? mobile_form_phone_number;
+  final String? mobile_form_subject;
+  final String? mobile_form_message;
 
   MobileContactFormList(
       {this.mobile_form_name,
@@ -646,14 +646,14 @@ class MobileContactFormList {
 }
 
 class MobileOtherButtonsList {
-  final String mobile_take_a_photo;
-  final String mobile_choose_from_gallery;
-  final String mobile_upload;
-  final String mobile_use_camera;
-  final String mobile_cancel;
-  final String mobile_cancel2;
-  final String mobile_ok;
-  final String upload_image;
+  final String? mobile_take_a_photo;
+  final String? mobile_choose_from_gallery;
+  final String? mobile_upload;
+  final String? mobile_use_camera;
+  final String? mobile_cancel;
+  final String? mobile_cancel2;
+  final String? mobile_ok;
+  final String? upload_image;
 
   MobileOtherButtonsList(
       {this.mobile_take_a_photo,
@@ -694,11 +694,11 @@ class MobileOtherButtonsList {
 }
 
 class MobileFraudFormList {
-  final String mobile_email_fraud;
-  final String mobile_upload_image_fraud;
-  final String mobile_type_of_fraud;
-  final String message;
-  final String choose_image;
+  final String? mobile_email_fraud;
+  final String? mobile_upload_image_fraud;
+  final String? mobile_type_of_fraud;
+  final String? message;
+  final String? choose_image;
 
   MobileFraudFormList(
       {this.mobile_email_fraud,
@@ -731,9 +731,9 @@ class MobileFraudFormList {
 }
 
 class MobileTypesOfFraudList {
-  final String mobile_fraud_type1;
-  final String mobile_fraud_type2;
-  final String mobile_fraud_type3;
+  final String? mobile_fraud_type1;
+  final String? mobile_fraud_type2;
+  final String? mobile_fraud_type3;
 
   MobileTypesOfFraudList(
       {this.mobile_fraud_type1,
@@ -760,9 +760,9 @@ class MobileTypesOfFraudList {
 }
 
 class MobileCertificateInfoList {
-  final String mobile_ceft_id_no;
-  final String mobile_ceft_status;
-  final String mobile_certificate_valid_until;
+  final String? mobile_ceft_id_no;
+  final String? mobile_ceft_status;
+  final String? mobile_certificate_valid_until;
 
   MobileCertificateInfoList(
       {this.mobile_ceft_id_no,
@@ -789,10 +789,10 @@ class MobileCertificateInfoList {
 }
 
 class MobileAboutUsLinksList {
-  final String terms;
-  final String privacy;
-  final String termslink;
-  final String privacylink;
+  final String? terms;
+  final String? privacy;
+  final String? termslink;
+  final String? privacylink;
 
   MobileAboutUsLinksList(
       {this.terms,
@@ -822,11 +822,11 @@ class MobileAboutUsLinksList {
 }
 
 class ContactFormAgreeList {
-  final String contact_form_text;
-  final String contact_form_terms;
-  final String contact_form_and;
-  final String contact_form_privacy;
-  final String contact_form_lastText;
+  final String? contact_form_text;
+  final String? contact_form_terms;
+  final String? contact_form_and;
+  final String? contact_form_privacy;
+  final String? contact_form_lastText;
 
   ContactFormAgreeList(
       {this.contact_form_text,
@@ -859,10 +859,10 @@ class ContactFormAgreeList {
 }
 
 class SearchFieldsList {
-  final String numbers;
-  final String restaurants;
-  final String products;
-  final String hotels;
+  final String? numbers;
+  final String? restaurants;
+  final String? products;
+  final String? hotels;
 
   SearchFieldsList(
       {this.numbers,

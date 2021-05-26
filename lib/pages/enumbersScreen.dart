@@ -16,8 +16,8 @@ class _EnumbersScreenState extends State<EnumbersScreen> {
   AppLanguage appLanguage = AppLanguage();
   LocalizedData localizedData = LocalizedData();
   static List _data = [];
-  List<ENumbersData> ENumbers = List();
-  List<ENumbersData> filteredENumbers = List();
+  List<ENumbersData> ENumbers = [];
+  List<ENumbersData> filteredENumbers = [];
   TextEditingController idController = TextEditingController();
 
   @override
@@ -62,7 +62,7 @@ class _EnumbersScreenState extends State<EnumbersScreen> {
     var localized = Provider.of<LocalizedData>(context);
 
     final eNumbers =
-    localized.data['${appLanguage.appLocal}Enumbers'].toUpperCase();
+    localized.data['${appLanguage.appLocal}Enumbers']?.toUpperCase();
 
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -72,7 +72,7 @@ class _EnumbersScreenState extends State<EnumbersScreen> {
               await loadAsset();
             }),
         appBar: AppBar(
-          title: Text(eNumbers),
+          title: Text(eNumbers ?? ''),
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);

@@ -14,8 +14,8 @@ class RestaurantsScreen extends StatefulWidget {
 class RestaurantsScreenState extends State<RestaurantsScreen> {
   AppLanguage appLanguage = AppLanguage();
   LocalizedData localizedData = LocalizedData();
-  List<Restaurants> restaurantsList = List();
-  List<Restaurants> filteredRestaurantsList = List();
+  List<Restaurants> restaurantsList = [];
+  List<Restaurants> filteredRestaurantsList = [];
   final HttpService httpService = HttpService();
   TextEditingController idController = TextEditingController();
 
@@ -38,7 +38,7 @@ class RestaurantsScreenState extends State<RestaurantsScreen> {
     var localized = Provider.of<LocalizedData>(context);
 
     final restaurants =
-    localized.data['${appLanguage.appLocal}Restaurants'].toUpperCase();
+    localized.data['${appLanguage.appLocal}Restaurants']?.toUpperCase() ?? '';
 
     return Scaffold(
         appBar: AppBar(
@@ -108,7 +108,7 @@ class RestaurantsScreenState extends State<RestaurantsScreen> {
                             if (item.description_restaurants != null) {
                               var category =
                                   item.description_restaurants.toString();
-                              var address = item.address_restaurants.address.toString();
+                              var address = item.address_restaurants?.address.toString();
                               return Card(
                                   margin: EdgeInsets.only(left: 10, right: 10, bottom: 10,),
                                   clipBehavior: Clip.antiAlias,
@@ -126,7 +126,7 @@ class RestaurantsScreenState extends State<RestaurantsScreen> {
                                           ),
                                         ),
                                         subtitle: Text(
-                                            address,
+                                            address ?? '',
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,

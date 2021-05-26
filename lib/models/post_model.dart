@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 // import 'dart:convert';
 
 class Post {
-  final String title;
-  final String date;
-  final String id_certificate;
-  final String color_valid;
-  final String date_until;
-  List<StatusCertificate> status_certificate;
-  List<CertificateList> certificate_list;
+  final String? title;
+  final String? date;
+  final String? id_certificate;
+  final String? color_valid;
+  final String? date_until;
+  List<StatusCertificate>? status_certificate;
+  List<CertificateList>? certificate_list;
 
   Post({
     @required this.title,
@@ -46,8 +46,8 @@ class Post {
 }
 
 class CertificateList {
-  final String certificate_image;
-  final String certificate_pdf;
+  final String? certificate_image;
+  final String? certificate_pdf;
 
   CertificateList({this.certificate_image, this.certificate_pdf});
 
@@ -66,7 +66,7 @@ class CertificateList {
 }
 
 class StatusCertificate {
-  final String label;
+  final String? label;
 
   StatusCertificate({this.label});
 
@@ -101,7 +101,7 @@ class ENumbersData {
 }
 
 class CategoriesProducts {
-  final String category_product;
+  final String? category_product;
 
   CategoriesProducts({this.category_product});
 
@@ -119,7 +119,7 @@ class CategoriesProducts {
 }
 
 class Product {
-  List<CategoriesProducts> categories_products;
+  List<CategoriesProducts>? categories_products;
 
   Product({
     this.categories_products,
@@ -139,6 +139,19 @@ class Product {
 }
 
 class AddressHotels {
+  String? address;
+  double? lat;
+  double? lng;
+  double? zoom;
+  String? placeId;
+  String? streetNumber;
+  String? streetName;
+  String? city;
+  String? state;
+  String? postCode;
+  String? country;
+  String? countryShort;
+
   AddressHotels({
     this.address,
     this.lat,
@@ -153,19 +166,6 @@ class AddressHotels {
     this.country,
     this.countryShort,
   });
-
-  String address;
-  double lat;
-  double lng;
-  double zoom;
-  String placeId;
-  String streetNumber;
-  String streetName;
-  String city;
-  String state;
-  String postCode;
-  String country;
-  String countryShort;
 
   factory AddressHotels.fromJson(Map<String, dynamic> json) =>
       AddressHotels(
@@ -201,35 +201,78 @@ class AddressHotels {
 }
 
 class Hotels {
-  final String description_hotels;
-  final String hotel_stars;
-  AddressHotels address_hotels;
+  final String? nameOfHotels;
+  final String? hotelStars;
+  AddressHotels? addressHotels;
+  LogoHotels? logoHotels;
 
   Hotels({
-    this.description_hotels,
-    this.hotel_stars,
-    this.address_hotels,
+    this.nameOfHotels,
+    this.hotelStars,
+    this.addressHotels,
+    this.logoHotels,
   });
 
   factory Hotels.fromJson(Map<String, dynamic> json) {
     return Hotels(
-      description_hotels: json['acf']['name_of_hotel'] as String,
-      hotel_stars: json['acf']['hotel_stars'] as String,
-      address_hotels: json['acf']["address_hotels_"] != null ? AddressHotels.fromJson(json['acf']["address_hotels_"]) : null,
+      nameOfHotels: json['acf']['name_of_hotel'] as String,
+      hotelStars: json['acf']['hotel_stars'] as String,
+      addressHotels: json['acf']["address_hotels_"] != null ? AddressHotels.fromJson(json['acf']["address_hotels_"]) : null,
+      logoHotels: json['acf']["logo_hotels"] != null ? LogoHotels.fromJson(json['acf']["logo_hotels"]) : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['acf']['name_of_hotel'] = this.description_hotels;
-    data['acf']['hotel_stars'] = this.hotel_stars;
-    data['acf']['address_hotels_'] = this.address_hotels;
+    data['acf']['name_of_hotel'] = this.nameOfHotels;
+    data['acf']['hotel_stars'] = this.hotelStars;
+    data['acf']['address_hotels_'] = this.addressHotels;
+    data['acf']['logo_hotels_'] = this.logoHotels;
     return data;
   }
 
 }
 
+class LogoHotels {
+  String? url;
+  int? width;
+  int? height;
+
+  LogoHotels({
+    this.url,
+    this.width,
+    this.height,
+});
+
+  factory LogoHotels.fromJson(Map<String, dynamic> json) => LogoHotels(
+    url: json["url"],
+    width: json["width"],
+    height: json["height"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "url": url,
+    "width": width,
+    "height": height,
+  };
+}
+
 class AddressRestaurants {
+  String? address;
+  double? lat;
+  double? lng;
+  double? zoom;
+  String? placeId;
+  String? streetNumber;
+  String? streetName;
+  String? streetNameShort;
+  String? city;
+  String? state;
+  String? stateShort;
+  String? postCode;
+  String? country;
+  String? countryShort;
+
   AddressRestaurants({
     this.address,
     this.lat,
@@ -246,22 +289,6 @@ class AddressRestaurants {
     this.country,
     this.countryShort,
   });
-
-  String address;
-  double lat;
-  double lng;
-  double zoom;
-  String placeId;
-  String streetNumber;
-  String streetName;
-  String streetNameShort;
-  String city;
-  String state;
-  String stateShort;
-  String postCode;
-  String country;
-  String countryShort;
-
   factory AddressRestaurants.fromJson(Map<String, dynamic> json) => AddressRestaurants(
     address: json["address"],
     lat: json["lat"].toDouble(),
@@ -302,8 +329,8 @@ class AddressRestaurants {
 }
 
 class Restaurants {
-  final String description_restaurants;
-  AddressRestaurants address_restaurants;
+  final String? description_restaurants;
+  AddressRestaurants? address_restaurants;
 
   Restaurants({
     this.description_restaurants,
