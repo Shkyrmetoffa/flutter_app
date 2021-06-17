@@ -53,6 +53,7 @@ dependencies:
   location: ^4.1.1
   image: ^3.0.2
   flutter_svg: ^0.22.0
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:

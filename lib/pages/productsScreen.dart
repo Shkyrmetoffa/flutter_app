@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app_localizations.dart';
 import 'package:flutter_app/http_service.dart';
+import 'package:flutter_app/pages/productDescription.dart';
 import 'package:provider/provider.dart';
 import '../models/post_model.dart';
 import '../extensions/extensions.dart';
@@ -110,9 +111,12 @@ class ProductsScreenState extends State<ProductsScreen> {
                                             fontWeight: FontWeight.w600
                                           ),
                                         ),
+                                onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                                    ProductDescription(data: item))),
                                       ),
                                     ],
-                                  ));
+                                  ),
+                              );
                             }
                             return Container(height: 0, width: 0);
                           },

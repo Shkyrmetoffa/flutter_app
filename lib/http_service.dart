@@ -26,7 +26,7 @@ class HttpService {
   }
 
    Future<List<Post>> getPosts(locale) async {
-     final url = '${BaseUrl(locale).url.toString()}/?per_page=100';
+     final url = '${BaseUrl(locale).url.toString()}';
 
      Response res = await get(Uri.parse(url));
 

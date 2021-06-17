@@ -84,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return appLanguage.changeLanguage(Locale("en"));
       }
     }
+
     return Scaffold(
       body: Stack(
         children: <Widget>[

@@ -54,13 +54,53 @@ class CertificateList {
   factory CertificateList.fromJson(Map<String, dynamic> json) {
     return CertificateList(
       certificate_image: json['certificate_image']['url'],
-      certificate_pdf: json['certificate_pdf'],
+      certificate_pdf: json['certificate_pdf'] != false ? json['certificate_pdf'] as String : '',
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['certificate_image']['url'] = this.certificate_image;
+    data['certificate_pdf'] = this.certificate_pdf;
+    return data;
+  }
+}
+
+class ServicesHotels {
+  final String? iconServicesHotels;
+  final String? descriptionServicesHotels;
+
+  ServicesHotels({this.iconServicesHotels, this.descriptionServicesHotels});
+
+  factory ServicesHotels.fromJson(Map<String, dynamic> json) {
+    return ServicesHotels(
+      iconServicesHotels: json['icon_services_hotels']['url'],
+      descriptionServicesHotels: json['description_services_hotels'] != false ? json['description_services_hotels'] as String : '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon_services_hotels']['url'] = this.iconServicesHotels;
+    data['description_services_hotels'] = this.descriptionServicesHotels;
+    return data;
+  }
+}
+
+class MuslimFriendlyStatus {
+  final String? label;
+
+  MuslimFriendlyStatus({this.label});
+
+  factory MuslimFriendlyStatus.fromJson(Map<String, dynamic> json) {
+    return MuslimFriendlyStatus(
+      label: json['label'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['label'] = this.label;
     return data;
   }
 }
@@ -201,36 +241,140 @@ class AddressHotels {
 }
 
 class Hotels {
+  final String? idCertificate;
+  final String? dateUntil;
   final String? nameOfHotels;
   final String? hotelStars;
+  final String? muslimFriendly;
+  final String? descriptionHotels;
   AddressHotels? addressHotels;
   LogoHotels? logoHotels;
+  List<GalleryHotel>? galleryHotels;
+  ContactsHotels? contactsHotels;
+  List<LanguagesHotel>? languagesHotels;
+  List<StatusCertificate>? statusCertificate;
+  List<CertificateList>? certificateList;
+  List<MuslimFriendlyStatus>? muslimFriendlyStatus;
+  List<ServicesHotels>? servicesHotels;
 
   Hotels({
+    this.idCertificate,
+    this.dateUntil,
     this.nameOfHotels,
     this.hotelStars,
+    this.muslimFriendly,
+    this.descriptionHotels,
     this.addressHotels,
     this.logoHotels,
+    this.galleryHotels,
+    this.contactsHotels,
+    this.languagesHotels,
+    this.statusCertificate,
+    this.certificateList,
+    this.muslimFriendlyStatus,
+    this.servicesHotels,
   });
 
   factory Hotels.fromJson(Map<String, dynamic> json) {
     return Hotels(
+      idCertificate: json['acf']['id_certificate'] as String,
+      dateUntil: json['acf']['date_until'] as String,
       nameOfHotels: json['acf']['name_of_hotel'] as String,
       hotelStars: json['acf']['hotel_stars'] as String,
+      muslimFriendly: json['acf']['hotel_stars'] as String,
+      descriptionHotels: json['acf']['description_hotels'] as String,
       addressHotels: json['acf']["address_hotels_"] != null ? AddressHotels.fromJson(json['acf']["address_hotels_"]) : null,
       logoHotels: json['acf']["logo_hotels"] != null ? LogoHotels.fromJson(json['acf']["logo_hotels"]) : null,
+      galleryHotels: json['acf']["logo_hotels"] != null ? (json['acf']['gallery_hotels'] as List).map((i) => GalleryHotel.fromJson(i)).toList() : null,
+      contactsHotels: json['acf']["contacts_hotels"] != null ? ContactsHotels.fromJson(json['acf']["contacts_hotels"]) : null,
+      languagesHotels: json['acf']["languages_hotels"] != null ? (json['acf']['languages_hotels'] as List).map((i) => LanguagesHotel.fromJson(i)).toList() : null,
+      statusCertificate: json['acf']["status_certificate"] != null ? (json['acf']['status_certificate'] as List).map((i) => StatusCertificate.fromJson(i)).toList() : null,
+      certificateList: json['acf']['certificate_list'] != null ? (json['acf']['certificate_list'] as List).map((i) => CertificateList.fromJson(i)).toList() : null,
+      muslimFriendlyStatus: json['acf']["muslim_friendly_status"] != null ? (json['acf']['muslim_friendly_status'] as List).map((i) => MuslimFriendlyStatus.fromJson(i)).toList() : null,
+      servicesHotels: json['acf']['services_hotels'] != null ? (json['acf']['services_hotels'] as List).map((i) => ServicesHotels.fromJson(i)).toList() : null,
+
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['acf']['id_certificate'] = this.idCertificate;
+    data['acf']['date_until'] = this.dateUntil;
     data['acf']['name_of_hotel'] = this.nameOfHotels;
     data['acf']['hotel_stars'] = this.hotelStars;
+    data['acf']['muslim_friendly'] = this.muslimFriendly;
+    data['acf']['description_hotels'] = this.descriptionHotels;
     data['acf']['address_hotels_'] = this.addressHotels;
     data['acf']['logo_hotels_'] = this.logoHotels;
+    data['acf']['gallery_hotels'] = this.galleryHotels;
+    data['acf']['contacts_hotels'] = this.contactsHotels;
+    data['acf']['languages_hotels'] = this.languagesHotels;
+    data['acf']['status_certificate'] = this.statusCertificate;
+    data['acf']['certificate_list'] = this.certificateList;
+    data['acf']['muslim_friendly_status'] = this.muslimFriendlyStatus;
+
     return data;
   }
+}
 
+class GalleryHotel {
+  final String? imageHotels;
+
+  GalleryHotel({
+    this.imageHotels,
+  });
+
+  factory GalleryHotel.fromJson(Map<String, dynamic> json) {
+    return GalleryHotel(
+      imageHotels: json['image_hotels']['url'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_hotels']['url'] = this.imageHotels;
+    return data;
+  }
+}
+
+class ContactsHotels {
+  String? emailHotels;
+  String? phoneHotels;
+  String? additionalFieldHotels;
+
+  ContactsHotels({
+    this.emailHotels,
+    this.phoneHotels,
+    this.additionalFieldHotels,
+  });
+
+  factory ContactsHotels.fromJson(Map<String, dynamic> json) => ContactsHotels(
+    emailHotels: json["email_hotels"],
+    phoneHotels: json["phone_hotels"],
+    additionalFieldHotels: json["additional_field_hotels"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "email_hotels": emailHotels,
+    "phone_hotels": phoneHotels,
+    "additional_field_hotels": additionalFieldHotels,
+  };
+}
+
+class LanguagesHotel {
+  String? languageHotels;
+
+  LanguagesHotel({
+    this.languageHotels,
+  });
+
+  factory LanguagesHotel.fromJson(Map<String, dynamic> json) => LanguagesHotel(
+    languageHotels: json["language_hotels"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "language_hotels": languageHotels,
+  };
 }
 
 class LogoHotels {

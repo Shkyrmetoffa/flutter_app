@@ -134,12 +134,15 @@ class CertificateCheckScreenState extends State<CertificateCheckScreen> {
                                 Padding(
                                     padding:
                                         EdgeInsets.only(top: 20, bottom: 10),
-                                    child: Text(
-                                        filteredCertificates[0].title ?? '',
-                                        style: TextStyle(
-                                          color: HexColor.fromHex('#84db2d'),
-                                          fontSize: 24,
-                                        ))),
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            filteredCertificates[0].title ?? '',
+                                            style: TextStyle(
+                                              color:
+                                                  HexColor.fromHex('#84db2d'),
+                                              fontSize: 24,
+                                            )))),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
@@ -365,38 +368,34 @@ class CertificateCheckScreenState extends State<CertificateCheckScreen> {
                             )),
                         noData
                             ? Container(
-                                child: Column(
-                                    // shrinkWrap: true,
-                                    children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 30),
-                                      child: Text(
-                                        certCheckNotFound ?? '',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.red),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: RaisedButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, '/fraud');
-                                          },
-                                          padding: EdgeInsets.only(
-                                              top: 9,
-                                              bottom: 9,
-                                              left: 16,
-                                              right: 16),
-                                          child: Text(certReportFraud ?? ''),
-                                          color: HexColor.fromHex('#28934b'),
-                                          textColor: Colors.white,
-                                        ))
-                                  ]))
+                                child: Column(children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 30),
+                                  child: Text(
+                                    certCheckNotFound ?? '',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.red),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/fraud');
+                                      },
+                                      padding: EdgeInsets.only(
+                                          top: 9,
+                                          bottom: 9,
+                                          left: 16,
+                                          right: 16),
+                                      child: Text(certReportFraud ?? ''),
+                                      color: HexColor.fromHex('#28934b'),
+                                      textColor: Colors.white,
+                                    ))
+                              ]))
                             : Text(''),
                       ],
                     )),
