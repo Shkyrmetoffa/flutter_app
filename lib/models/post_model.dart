@@ -66,6 +66,24 @@ class CertificateList {
   }
 }
 
+class GalleryProductsList {
+  final String? image_products;
+
+  GalleryProductsList({this.image_products});
+
+  factory GalleryProductsList.fromJson(Map<String, dynamic> json) {
+    return GalleryProductsList(
+      image_products: json['image_products']['url'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_products']['url'] = this.image_products;
+    return data;
+  }
+}
+
 class ServicesHotels {
   final String? iconServicesHotels;
   final String? descriptionServicesHotels;
@@ -83,6 +101,27 @@ class ServicesHotels {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['icon_services_hotels']['url'] = this.iconServicesHotels;
     data['description_services_hotels'] = this.descriptionServicesHotels;
+    return data;
+  }
+}
+
+class ServicesRestaurant {
+  final String? icon_services_restaurants;
+  final String? description_services_restaurants;
+
+  ServicesRestaurant({this.icon_services_restaurants, this.description_services_restaurants});
+
+  factory ServicesRestaurant.fromJson(Map<String, dynamic> json) {
+    return ServicesRestaurant(
+      icon_services_restaurants: json['icon_services_restaurants']['url'],
+      description_services_restaurants: json['description_services_restaurants'] != false ? json['description_services_restaurants'] as String : '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['icon_services_restaurants']['url'] = this.icon_services_restaurants;
+    data['description_services_restaurants'] = this.description_services_restaurants;
     return data;
   }
 }
@@ -107,18 +146,21 @@ class MuslimFriendlyStatus {
 
 class StatusCertificate {
   final String? label;
+  final String? value;
 
-  StatusCertificate({this.label});
+  StatusCertificate({this.label, this.value});
 
   factory StatusCertificate.fromJson(Map<String, dynamic> json) {
     return StatusCertificate(
       label: json['label'],
+      value: json['value'],
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['label'] = this.label;
+    data['value'] = this.value;
     return data;
   }
 }
@@ -160,20 +202,25 @@ class CategoriesProducts {
 
 class Product {
   List<CategoriesProducts>? categories_products;
+  List<GalleryProductsList>? gallery_products;
 
   Product({
     this.categories_products,
+    this.gallery_products,
+
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       categories_products: json['acf']['categories_products'] != null ? (json['acf']['categories_products'] as List).map((i) => CategoriesProducts.fromJson(i)).toList() : null,
+      gallery_products: json['acf']['gallery_products'] != null ? (json['acf']['gallery_products'] as List).map((i) => GalleryProductsList.fromJson(i)).toList() : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['acf']['categories_products'] = this.categories_products;
+    data['acf']['gallery_products'] = this.gallery_products;
     return data;
   }
 }
@@ -433,6 +480,7 @@ class AddressRestaurants {
     this.country,
     this.countryShort,
   });
+
   factory AddressRestaurants.fromJson(Map<String, dynamic> json) => AddressRestaurants(
     address: json["address"],
     lat: json["lat"].toDouble(),
@@ -472,26 +520,216 @@ class AddressRestaurants {
   };
 }
 
-class Restaurants {
-  final String? description_restaurants;
-  AddressRestaurants? address_restaurants;
+class ContactsRestaurants {
+  String? email_restaurants;
+  String? phone_restaurants;
+  String? additional_field_restaurants;
 
-  Restaurants({
-    this.description_restaurants,
-    this.address_restaurants,
+  ContactsRestaurants({
+    this.email_restaurants,
+    this.phone_restaurants,
+    this.additional_field_restaurants,
+
   });
 
-  factory Restaurants.fromJson(Map<String, dynamic> json) {
-    return Restaurants(
-      description_restaurants: json['acf']['description_restaurants'] as String,
-      address_restaurants: json['acf']["address_restaurants"] != null ? AddressRestaurants.fromJson(json['acf']["address_restaurants"]) : null,
+  factory ContactsRestaurants.fromJson(Map<String, dynamic> json) => ContactsRestaurants(
+    email_restaurants: json["email_restaurants"],
+    phone_restaurants: json["phone_restaurants"],
+    additional_field_restaurants: json["additional_field_restaurants"],
+
+  );
+
+  Map<String, dynamic> toJson() => {
+    "email_restaurants": email_restaurants,
+    "phone_restaurants": phone_restaurants,
+    "additional_field_restaurants": additional_field_restaurants,
+
+  };
+}
+
+class WorkingTimeRestaurants {
+  String? time_from_restaurants;
+  String? time_until_restaurants;
+  List<DaysWeekRestaurantsList>? days_week_restaurants;
+
+
+  WorkingTimeRestaurants({
+    this.time_from_restaurants,
+    this.time_until_restaurants,
+    this.days_week_restaurants,
+
+  });
+
+  factory WorkingTimeRestaurants.fromJson(Map<String, dynamic> json) => WorkingTimeRestaurants(
+    time_from_restaurants: json["time_from_restaurants"],
+    time_until_restaurants: json["time_until_restaurants"],
+    days_week_restaurants: json['days_week_restaurants'] != null ? (json['days_week_restaurants'] as List).map((i) => DaysWeekRestaurantsList.fromJson(i)).toList() : null,
+
+  );
+
+  Map<String, dynamic> toJson() => {
+    "time_from_restaurants": time_from_restaurants,
+    "time_until_restaurants": time_until_restaurants,
+    "days_week_restaurants": days_week_restaurants,
+
+  };
+}
+
+class DaysWeekRestaurantsList {
+  final String? value;
+  final String? label;
+
+  DaysWeekRestaurantsList({
+    this.value,
+    this.label,
+  });
+
+  factory DaysWeekRestaurantsList.fromJson(Map<String, dynamic> json) {
+    return DaysWeekRestaurantsList(
+      value: json['value'],
+      label: json['label'],
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['value'] = this.value;
+    data['label'] = this.label;
+    return data;
+  }
+}
+
+class LogoRestaurants {
+  String? url;
+
+  LogoRestaurants({
+    this.url,
+
+  });
+  factory LogoRestaurants.fromJson(Map<String, dynamic> json) => LogoRestaurants(
+    url: json["url"],
+
+  );
+
+  Map<String, dynamic> toJson() => {
+    "url": url,
+
+  };
+}
+
+class GalleryRestaurantsList {
+  final String? imageRestaurants;
+
+  GalleryRestaurantsList({
+    this.imageRestaurants,
+  });
+
+  factory GalleryRestaurantsList.fromJson(Map<String, dynamic> json) {
+    return GalleryRestaurantsList(
+      imageRestaurants: json['image_restaurants']['url'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['image_restaurants']['url'] = this.imageRestaurants;
+    return data;
+  }
+}
+
+class LanguagesRestaurantsList {
+  final String? languageRestaurants;
+
+  LanguagesRestaurantsList({
+    this.languageRestaurants,
+  });
+
+  factory LanguagesRestaurantsList.fromJson(Map<String, dynamic> json) {
+    return LanguagesRestaurantsList(
+      languageRestaurants: json['language_restaurants'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['language_restaurants'] = this.languageRestaurants;
+    return data;
+  }
+}
+
+class Restaurants {
+  final String? name_of_restaurant;
+  final String? description_restaurants;
+  final String? id_certificate;
+  final String? date_until;
+  final bool? muslim_friendly;
+  AddressRestaurants? address_restaurants;
+  ContactsRestaurants? contacts_restaurants;
+  LogoRestaurants? logo_restaurants;
+  List<GalleryRestaurantsList>? gallery_restaurants;
+  List<LanguagesRestaurantsList>? languages_restaurants;
+  List<StatusCertificate>? status_certificate;
+  List<MuslimFriendlyStatus>? muslim_friendly_status;
+  List<CertificateList>? certificate_list;
+  List<ServicesRestaurant>? services_restaurants;
+  WorkingTimeRestaurants? working_time_restaurants;
+
+  Restaurants({
+    this.name_of_restaurant,
+    this.description_restaurants,
+    this.id_certificate,
+    this.date_until,
+    this.muslim_friendly,
+    this.address_restaurants,
+    this.contacts_restaurants,
+    this.logo_restaurants,
+    this.gallery_restaurants,
+    this.languages_restaurants,
+    this.status_certificate,
+    this.certificate_list,
+    this.muslim_friendly_status,
+    this.working_time_restaurants,
+    this.services_restaurants,
+  });
+
+  factory Restaurants.fromJson(Map<String, dynamic> json) {
+    return Restaurants(
+      name_of_restaurant: json['acf']['name_of_restaurant'] as String,
+      description_restaurants: json['acf']['description_restaurants'] as String,
+      id_certificate: json['acf']['id_certificate'] as String,
+      date_until: json['acf']['date_until'] as String,
+      muslim_friendly: json['acf']['muslim_friendly'],
+      address_restaurants: json['acf']["address_restaurants"] != null ? AddressRestaurants.fromJson(json['acf']["address_restaurants"]) : null,
+      contacts_restaurants: json['acf']["contacts_restaurants"] != null ? ContactsRestaurants.fromJson(json['acf']["contacts_restaurants"]) : null,
+      status_certificate: json['acf']['status_certificate'] != null ? (json['acf']['status_certificate'] as List).map((i) => StatusCertificate.fromJson(i)).toList() : null,
+      certificate_list: json['acf']['certificate_list'] != null ? (json['acf']['certificate_list'] as List).map((i) => CertificateList.fromJson(i)).toList() : null,
+      working_time_restaurants: json['acf']["working_time_restaurants"] != null ? WorkingTimeRestaurants.fromJson(json['acf']["working_time_restaurants"]) : null,
+      logo_restaurants: json['acf']["logo_restaurants"] != null ? LogoRestaurants.fromJson(json['acf']["logo_restaurants"]) : null,
+      gallery_restaurants: json['acf']['gallery_restaurants'] != null ? (json['acf']['gallery_restaurants'] as List).map((i) => GalleryRestaurantsList.fromJson(i)).toList() : null,
+      muslim_friendly_status: json['acf']["muslim_friendly_status"] != null ? (json['acf']['muslim_friendly_status'] as List).map((i) => MuslimFriendlyStatus.fromJson(i)).toList() : null,
+      languages_restaurants: json['acf']['languages_restaurants'] != null ? (json['acf']['languages_restaurants'] as List).map((i) => LanguagesRestaurantsList.fromJson(i)).toList() : null,
+      services_restaurants: json['acf']['services_restaurants'] != null ? (json['acf']['services_restaurants'] as List).map((i) => ServicesRestaurant.fromJson(i)).toList() : null,
+
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['acf']['name_of_restaurant'] = this.name_of_restaurant;
     data['acf']['description_restaurants'] = this.description_restaurants;
+    data['acf']['id_certificate'] = this.id_certificate;
+    data['acf']['date_until'] = this.date_until;
+    data['acf']['muslim_friendly'] = this.muslim_friendly;
     data['acf']['address_restaurants'] = this.address_restaurants;
+    data['acf']['contacts_restaurants'] = this.contacts_restaurants;
+    data['acf']['status_certificate'] = this.status_certificate;
+    data['acf']['certificate_list'] = this.certificate_list;
+    data['acf']['working_time_restaurants'] = this.working_time_restaurants;
+    data['acf']['logo_restaurants'] = this.logo_restaurants;
+    data['acf']['gallery_restaurants'] = this.gallery_restaurants;
+    data['acf']['muslim_friendly_status'] = this.muslim_friendly_status;
+    data['acf']['languages_restaurants'] = this.languages_restaurants;
+    data['acf']['services_restaurants'] = this.services_restaurants;
     return data;
   }
 }

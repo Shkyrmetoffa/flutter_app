@@ -53,6 +53,23 @@ class CertificateCheckScreenState extends State<CertificateCheckScreen> {
     });
   }
 
+  getStatusColor() {
+    switch (filteredCertificates[0]
+        .status_certificate
+        ?.first
+        .value) {
+      case 'renewed':
+        return '#189ADB';
+      case 'withdrawn':
+        return '#DB2D2D';
+      case 'expired':
+        return '#DB2D2D';
+      case 'valid':
+        return '#28934B';
+      default: return '#fffff';
+    }
+  }
+
   validationMessage(text) {}
 
   @override
@@ -84,6 +101,7 @@ class CertificateCheckScreenState extends State<CertificateCheckScreen> {
         localized.data['${appLanguage.appLocal}ReportFraud2']?.toUpperCase();
     final certCheckEmpty =
         localized.data['${appLanguage.appLocal}CertificateCheckEmpty'];
+    final statusColor = getStatusColor();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -181,9 +199,7 @@ class CertificateCheckScreenState extends State<CertificateCheckScreen> {
                                               height: 1.2,
                                               fontWeight: FontWeight.bold,
                                               color: HexColor.fromHex(
-                                                  filteredCertificates[0]
-                                                      .color_valid
-                                                      .toString()))),
+                                                  statusColor))),
                                     ]),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,

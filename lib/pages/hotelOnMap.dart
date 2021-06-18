@@ -19,6 +19,7 @@ class HotelOnMapScreenState extends State<HotelOnMapScreen> {
   AppLanguage appLanguage = AppLanguage();
   LocalizedData localizedData = LocalizedData();
   Set<Marker> _markers = {};
+  BitmapDescriptor? pinLocationIcon;
   List addresses = [];
   double pinPillPosition = -110;
   String? hotelName;
@@ -28,6 +29,16 @@ class HotelOnMapScreenState extends State<HotelOnMapScreen> {
   @override
   void initState() {
     super.initState();
+    setCustomMarker();
+  }
+
+  void setCustomMarker() async {
+    var icon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(),
+        'images/map_marker_default.png');
+    setState(() {
+      pinLocationIcon = icon;
+    });
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -39,8 +50,7 @@ class HotelOnMapScreenState extends State<HotelOnMapScreen> {
               markerId: MarkerId(item.addressHotels.placeId),
               position:
               LatLng(item.addressHotels.lat, item.addressHotels.lng),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueCyan),
+              icon: pinLocationIcon ?? BitmapDescriptor.defaultMarker,
               onTap: () {
                 setState(() {
                   hotelName = item.nameOfHotels;

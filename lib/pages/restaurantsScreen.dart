@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/restaurantDescription.dart';
 import 'package:flutter_app/pages/restaurantsOnMap.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_app/app_localizations.dart';
@@ -85,7 +86,7 @@ class RestaurantsScreenState extends State<RestaurantsScreen> {
                     onChanged: (value) {
                       setState(() {
                         filteredRestaurantsList = restaurantsList.where((element) {
-                          return element.description_restaurants
+                          return element.name_of_restaurant
                               .toString()
                               .toLowerCase()
                               .contains(value.toLowerCase());
@@ -105,9 +106,9 @@ class RestaurantsScreenState extends State<RestaurantsScreen> {
                           itemCount: filteredRestaurantsList.length,
                           itemBuilder: (context, ind) {
                             var item = filteredRestaurantsList[ind];
-                            if (item.description_restaurants != null) {
+                            if (item.name_of_restaurant != null) {
                               var category =
-                                  item.description_restaurants.toString();
+                                  item.name_of_restaurant.toString();
                               var address = item.address_restaurants?.address.toString();
                               return Card(
                                   margin: EdgeInsets.only(left: 10, right: 10, bottom: 10,),
@@ -133,7 +134,9 @@ class RestaurantsScreenState extends State<RestaurantsScreen> {
                                             color: HexColor.fromHex('#363636')
                                           ),
                                         ),
-                                      ),
+                                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                                        RestautantDescription(data: item))),
+                                  ),
                                     ],
                                   )));
                             }

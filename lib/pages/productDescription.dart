@@ -51,106 +51,73 @@ class ProductDescriptionState extends State<ProductDescription> {
     var localized = Provider.of<LocalizedData>(context);
 
     final products =
-    localized.data['${appLanguage.appLocal}Products']?.toUpperCase();
-
-    final category = widget.data.categories_products.first.category_product
-        .toString();
+        localized.data['${appLanguage.appLocal}Products']?.toUpperCase();
+    final category =
+        widget.data.categories_products.first.category_product.toString();
+    final galleryProducts = widget.data.gallery_products != null
+        ? widget.data.gallery_products.toList()
+        : null;
 
     return Scaffold(
-      appBar: AppBar(
-          title: Text(products ?? ''),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.arrow_back, // add custom icons also
+        appBar: AppBar(
+            title: Text(products ?? ''),
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back, // add custom icons also
+              ),
             ),
-          ),
-          actions: <Widget>[],
-          backgroundColor: HexColor.fromHex('#96c42d')),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top: 20, left: 20, bottom: 20),
-          color: HexColor.fromHex('#363636'),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: Text(category,
-                          style: TextStyle(
-                              color: HexColor.fromHex('#96c42d'),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500))),
-              Padding(
-                    padding: EdgeInsets.only(bottom: 20),
+            actions: <Widget>[],
+            backgroundColor: HexColor.fromHex('#96c42d')),
+        body: Container(
+            width: MediaQuery.of(context).size.width,
+            color: HexColor.fromHex('#363636'),
+            child:
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(top: 20, left: 20, bottom: 20),
+                    child: Text(category,
+                        style: TextStyle(
+                            color: HexColor.fromHex('#96c42d'),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500))),
+                Padding(
+                    padding: EdgeInsets.only(left: 20, bottom: 12),
                     child: Text('CATEGORIES'.toUpperCase(),
                         style: TextStyle(
                             color: HexColor.fromHex('#989898'),
                             fontSize: 14,
                             fontWeight: FontWeight.w500))),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: Text(category,
-                      style: TextStyle(
-                          color: HexColor.fromHex('#f4f4f4'),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500))),
-              // Container(
-              //     width: MediaQuery.of(context).size.width,
-              //     child: Stack(children: [
-              //       CarouselSlider.builder(
-              //           carouselController: buttonCarouselController,
-              //           itemCount: galleryHotels.length,
-              //           itemBuilder: (context, index, realIdx) {
-              //             return Container(
-              //               child: Center(
-              //                   child: Image.network(
-              //                       galleryHotels[index].imageHotels,
-              //                       fit: BoxFit.cover,
-              //                       width: MediaQuery.of(context).size.width)),
-              //             );
-              //           },
-              //           options: CarouselOptions(
-              //             viewportFraction: 1,
-              //           )),
-              //       Positioned.fill(
-              //           child: Align(
-              //             alignment: Alignment.centerRight,
-              //             child: GestureDetector(
-              //                 onTap: () => buttonCarouselController.nextPage(
-              //                     duration: Duration(milliseconds: 300),
-              //                     curve: Curves.linear),
-              //                 child: Padding(
-              //                   padding: EdgeInsets.only(right: 14),
-              //                   child: Icon(
-              //                     Icons.arrow_forward,
-              //                     color: Colors.white60,
-              //                     size: 40, // add custom icons also
-              //                   ),
-              //                 )),
-              //           )),
-              //       Positioned.fill(
-              //           child: Align(
-              //             alignment: Alignment.centerLeft,
-              //             child: GestureDetector(
-              //                 onTap: () => buttonCarouselController.previousPage(
-              //                     duration: Duration(milliseconds: 300),
-              //                     curve: Curves.linear),
-              //                 child: Padding(
-              //                   padding: EdgeInsets.only(left: 14),
-              //                   child: Icon(
-              //                     Icons.arrow_back,
-              //                     color: Colors.white60,
-              //                     size: 40, // add custom icons also
-              //                   ),
-              //                 )),
-              //           )),
-              //     ])),
-            ],
-          )
-      )
-    );
+                Padding(
+                    padding: EdgeInsets.only(left: 20, bottom: 20),
+                    child: Text(category,
+                        style: TextStyle(
+                            color: HexColor.fromHex('#f4f4f4'),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500))),
+        Expanded(
+            child: Container(
+              child:ListView.builder(
+                    padding: EdgeInsets.only(top: 10.0),
+                    itemCount: galleryProducts.length,
+                    itemBuilder: (context, ind) {
+                      var item = galleryProducts[ind];
+                      var productImage = item.image_products.toString();
+                      return Container(
+                        padding: EdgeInsets.only(bottom: 6),
+                        child: Center(
+                            child: Image.network(productImage,
+                                fit: BoxFit.cover,
+                                height: 216,
+                                width: MediaQuery.of(context).size.width)),
+                      );
+                    })
+            ))
+              ],
+            )));
   }
 }

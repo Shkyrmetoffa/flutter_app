@@ -93,6 +93,7 @@ flutter:
     - images/insta.png
     - images/send_contacts.png
     - images/on_map.png
+    - images/map_marker_default.png
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

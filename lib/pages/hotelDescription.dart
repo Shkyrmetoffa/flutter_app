@@ -45,6 +45,22 @@ class HotelDescriptionState extends State<HotelDescription> {
     }
   }
 
+  getStatusColor(statusCertificate) {
+    switch (statusCertificate
+        ?.first
+        .value) {
+      case 'renewed':
+        return '#189ADB';
+      case 'withdrawn':
+        return '#DB2D2D';
+      case 'expired':
+        return '#DB2D2D';
+      case 'valid':
+        return '#28934B';
+      default: return '#fffff';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var appLanguage = Provider.of<AppLanguage>(context);
@@ -91,6 +107,7 @@ class HotelDescriptionState extends State<HotelDescription> {
     final servicesHotels = widget.data.servicesHotels != null
         ? widget.data.servicesHotels.toList()
         : null;
+    final statusColor = getStatusColor(statusCertificate);
 
     return Scaffold(
       appBar: AppBar(
@@ -202,8 +219,11 @@ class HotelDescriptionState extends State<HotelDescription> {
                   ])),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  color: HexColor.fromHex('#404040'),
-                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: HexColor.fromHex('#404040'),
+                      border: Border(bottom: BorderSide(width: 1.0, color: HexColor.fromHex('#363636')))
+                  ),
+                  padding: EdgeInsets.only(top: 20, left: 20, right: 20),
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -293,20 +313,22 @@ class HotelDescriptionState extends State<HotelDescription> {
                             ),
                           )),
                       ListView.builder(
-                          padding: EdgeInsets.only(top: 12.0),
+                          padding: EdgeInsets.only(top: 12.0, bottom: 8.0),
                           itemCount: languagesHotels.length,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, ind) {
                             var item = languagesHotels[ind];
-                            return Text(
+                            return  Padding(
+                                padding: EdgeInsets.only(bottom: 12.0),
+                            child: Text(
                               item.languageHotels,
                               style: TextStyle(
                                 color: HexColor.fromHex('#f4f4f4'),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
-                            );
+                            ));
                           })
                     ],
                   )),
@@ -347,8 +369,8 @@ class HotelDescriptionState extends State<HotelDescription> {
                                     fontSize: 18,
                                     height: 1.2,
                                     fontWeight: FontWeight.bold,
-                                    // color: HexColor.fromHex(
-                                    //     color)
+                                    color: HexColor.fromHex(
+                                        statusColor)
                                   )),
                             ]),
                         Row(
@@ -370,13 +392,15 @@ class HotelDescriptionState extends State<HotelDescription> {
                           padding: EdgeInsets.only(top: 20),
                           child: Image.network(
                             certificateImage,
-                            // height: 500,
                           ),
                         ),
                       ])),
               Container(
                   width: MediaQuery.of(context).size.width,
-                  color: HexColor.fromHex('#404040'),
+                  decoration: BoxDecoration(
+                      color: HexColor.fromHex('#404040'),
+                      border: Border(top: BorderSide(width: 1.0, color: HexColor.fromHex('#363636')))
+                  ),
                   padding: EdgeInsets.all(20),
                   child: Column(children: <Widget>[
                     Row(
